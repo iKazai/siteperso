@@ -73,7 +73,7 @@ function App() {
         </div>
         
         {/* Image Carousel à droite (devient en haut sur mobile) */}
-        <div className="carousel w-full md:w-[450px] lg:w-[560px] h-[350px] md:h-[500px] lg:h-[700px] relative overflow-hidden rounded-2xl shadow-xl">
+        <div className="carousel mt-20 w-full md:w-[450px] lg:w-[560px] h-[350px] md:h-[500px] lg:h-[700px] relative overflow-hidden rounded-2xl shadow-xl">
           {/* Image actuelle */}
           <div 
             ref={imageRef}
