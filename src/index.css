@@ -1,2 +1,95 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* Éliminer le scroll indésirable */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Styles pour les mots "Une nouvelle Dimension" */
+.dimension-word {
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.15);
+  cursor: default;
+  transform-origin: bottom center;
+  transition: all 0.4s ease-out;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Animation de flottement subtile */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.dimension-word:hover {
+  transform: translateY(-6px) scale(1.1);
+  filter: brightness(1.2);
+  font-weight: 600;
+}
+
+/* Effet de luminosité au survol */
+.dimension-word::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+  opacity: 0.7;
+}
+
+.dimension-word:hover::after {
+  transform: scaleX(1);
+}
+
+/* Couleurs spécifiques pour chaque mot */
+.dimension-purple {
+  animation-delay: 0s;
+}
+.dimension-purple:hover {
+  color: rgb(192, 132, 252); /* Purple-400 */
+  text-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
+}
+
+.dimension-blue {
+  animation-delay: 0.5s;
+}
+.dimension-blue:hover {
+  color: rgb(96, 165, 250); /* Blue-400 */
+  text-shadow: 0 0 10px rgba(96, 165, 250, 0.4);
+}
+
+.dimension-emerald {
+  animation-delay: 1s;
+}
+.dimension-emerald:hover {
+  color: rgb(52, 211, 153); /* Emerald-400 */
+  text-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .dimension-word {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dimension-word {
+    font-size: 1.75rem;
+  }
+}
