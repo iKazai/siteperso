@@ -6,10 +6,19 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
 }
 
 #root {
   min-height: 100vh;
+}
+
+/* Amélioration pour les mots alternatifs au survol */
+.group:hover .text-fuchsia-400,
+.group:hover .text-sky-400,
+.group:hover .text-emerald-300 {
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 /* Styles pour les mots "Une nouvelle Dimension" */

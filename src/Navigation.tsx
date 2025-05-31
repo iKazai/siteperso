@@ -46,13 +46,13 @@ export default function Navigation() {
             <nav className="flex flex-col space-y-8">
               <a 
                 href="/" 
-                className="text-6xl text-white font-serif  hover:text-[#b5dcff] transition-all duration-300 hover:scale-110 cursor-pointer"
+                className="text-6xl text-white font-serif hover:text-[#b5dcff] transition-all duration-300 hover:scale-110 cursor-pointer"
                 onClick={toggleMenu}
               >
                 Home
               </a>
               <a 
-                href="/pictures" 
+                href="#pictures" 
                 className="text-6xl text-white font-serif  hover:text-[#b5dcff] transition-all duration-300 hover:scale-110 cursor-pointer"
                 onClick={toggleMenu}
               >
