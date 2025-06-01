@@ -160,7 +160,7 @@ function App() {
 
         {/* Swipe up */}
 
-        <a className="flex flex-col absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-sm items-center hover:animate-bounce" href="#pictures">
+        <a className="flex flex-col absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-sm items-center hover:animate-bounce" href="#tableofcontents">
         Swipe to discover
           <svg
             xmlns="http://www.w3.org/2000/svg"
