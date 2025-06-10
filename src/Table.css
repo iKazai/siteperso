@@ -1,0 +1,68 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Transitions fluides pour le Table of Contents */
+.TableOfContents {
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.TableOfContents ul {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.TableOfContents li {
+  transition: all 0.3s ease-out;
+}
+
+.TableOfContents li:hover {
+  transform: translateY(-2px);
+}
+
+/* Animation pour le preview */
+#preview {
+  transition: all 0.4s ease-in-out;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+#preview.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Animations pour le conteneur d'image */
+.image-container {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations pour les boutons de navigation */
+.nav-button {
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: scale(1.05);
+}
+
+/* Overlay animation */
+.image-overlay {
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .TableOfContents h2 {
+    font-size: 2.5rem;
+  }
+  
+  .TableOfContents ul {
+    font-size: 2rem;
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
