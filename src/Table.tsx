@@ -124,7 +124,7 @@ export default function TableOfContents() {
                 {/* Conteneur d'image fixe pour chaque section */}
                 <div
                     ref={imageContainerRef}
-                    className="fixed right-0 top-1/3 transform -translate-y-1/2 h-[70vh] lg:w-1/4 bg-cover bg-center rounded-2xl shadow-xl"
+                    className="fixed right-0 top-1/2 transform -translate-y-1/2 h-[70vh] lg:w-1/4 bg-cover bg-center rounded-2xl shadow-xl"
                     style={{ display: 'none' }}
                 />
 

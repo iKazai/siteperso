@@ -13,26 +13,27 @@ export default function About() {
                     </p>
                     
                     {/* Social Media Icons */}
-                    <div className="flex justify-center items-center gap-8 mt-10 sm:mt-12 md:mt-16">
-                        <a href="#" className="transform hover:scale-110 transition-transform duration-200">
+                    <div className="flex justify-end items-center gap-20 mt-10 sm:mt-12 md:mt-16">
+                        <a href="https://www.instagram.com/njyy_s_/" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-transform duration-500">
                             <img 
                                 src="src/assets/logo/instagram-Logo.svg" 
                                 alt="Instagram"
-                                className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+                                className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14"
                             />
                         </a>
-                        <a href="#" className="transform hover:scale-110 transition-transform duration-200">
+                        <a href="https://www.linkedin.com/in/anjy-stadelmann/" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-transform duration-500">
                             <img 
                                 src="src/assets/logo/LinkedIn-Logo.svg" 
                                 alt="LinkedIn"
-                                className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+                                className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14"
                             />
                         </a>
-                        <a href="#" className="transform hover:scale-110 transition-transform duration-200">
+                        <a href="https://github.com/iKazai" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-transform duration-500">
                             <img 
                                 src="src/assets/logo/GitHub-Logo.svg" 
                                 alt="GitHub"
-                                className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
+                                className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14"
+                                style={{ filter: 'brightness(0)' }} 
                             />
                         </a>
                     </div>
