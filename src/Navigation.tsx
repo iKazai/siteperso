@@ -59,14 +59,14 @@ export default function Navigation() {
                 Pictures
               </a>
               <a 
-                href="/projects" 
+                href="#projects" 
                 className="text-6xl text-white font-serif  hover:text-[#b5dcff] transition-all duration-300 hover:scale-110 cursor-pointer"
                 onClick={toggleMenu}
               >
                 Projects
               </a>
               <a 
-                href="/about" 
+                href="#about" 
                 className="text-6xl text-white font-serif  hover:text-[#b5dcff] transition-all duration-300 hover:scale-110 cursor-pointer"
                 onClick={toggleMenu}
               >

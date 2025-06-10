@@ -18,80 +18,100 @@ export default function TableOfContents() {
     const containerRef = useRef<HTMLDivElement>(null);
     const ulRef = useRef<HTMLUListElement>(null);
     const imageContainerRef = useRef<HTMLDivElement>(null);
-    
+
     function shiftTableOfContents(section: string) {
-        // Vérifier si on est sur desktop
         const isDesktop = window.innerWidth >= 1024;
         if (!isDesktop) {
-            // For mobile, just change the section without animation
             setCurrentSection(section);
             return;
         }
-        
+
         setShifted(true);
         setCurrentSection(section);
 
-        // Déplace le contenu vers la droite pour faire de la place pour l'image
         gsap.to(containerRef.current, {
-            x: "-30vw", // Déplacement de 500px vers la gauche sur desktop seulement
-            duration: 0.8,
-            ease: "power1.out"
-        });
-
-        // Afficher l'image correspondante à la section
-        if (section && imageContainerRef.current) {
-            imageContainerRef.current.style.backgroundImage = `url(${sectionImages[section as keyof typeof sectionImages]})`;
-            imageContainerRef.current.style.display = 'block';
-            
-            gsap.fromTo(imageContainerRef.current,
-                { opacity: 0, scale: 0.95 },
-                { opacity: 1, scale: 1, duration: 1.2, ease: "power1.in" }
-            );
-        }
-    }
-      
-    function resetTableOfContents() {
-        setShifted(false);
-        setCurrentSection(null);
-
-        // Animation GSAP pour remettre tout le contenu au centre
-        gsap.to(containerRef.current, {
-            x: 0, // Retour à la position d'origine
+            x: "-30vw",
             duration: 0.8,
             ease: "power1.inOut"
         });
 
-        // Cacher l'image avec une transition fluide
         if (imageContainerRef.current) {
-            gsap.to(imageContainerRef.current, {
-                opacity: 0,
-                scale: 0.95,
-                duration: 0.5,
-                ease: "power1.out",
-                onComplete: () => {
-                    if (imageContainerRef.current) {
-                        imageContainerRef.current.style.display = 'none';
+            const el = imageContainerRef.current;
+            el.style.backgroundImage = `url(${sectionImages[section as keyof typeof sectionImages]})`;
+            el.style.display = 'block';
+
+            gsap.fromTo(el,
+                { opacity: 0, scale: 0.95 },
+                { opacity: 1, scale: 1, duration: 0.8, ease: "power1.inOut" }
+            );
+        }
+    }
+
+    function resetTableOfContents() {
+        setShifted(false);
+        setCurrentSection(null);
+
+        gsap.to(containerRef.current, {
+            x: 0,
+            duration: 0.8,
+            ease: "power1.inOut"
+        });
+
+        if (imageContainerRef.current) {
+            const el = imageContainerRef.current;
+            gsap.fromTo(el,
+                { opacity: 1, scale: 1 },
+                {
+                    opacity: 0,
+                    scale: 0.95,
+                    duration: 0.5,
+                    ease: "power1.inOut",
+                    onComplete: () => {
+                        el.style.display = 'none';
                     }
                 }
-            });
+            );
         }
-    }    
-    
+    }
+
     function showPreview(section: string) {
-        if (!shift) {
-            shiftTableOfContents(section);
-        } else if (currentSection !== section) {
-            // Si on change de section pendant que c'est déjà shifté
+        const isDesktop = window.innerWidth >= 1024;
+        if (!isDesktop) {
             setCurrentSection(section);
-            
-            // Changement direct de l'image sans transition
-            if (imageContainerRef.current) {
-                imageContainerRef.current.style.backgroundImage = `url(${sectionImages[section as keyof typeof sectionImages]})`;
-            }
+            return;
         }
 
+        if (!shift) {
+            shiftTableOfContents(section);
+            return;
+        }
+
+        if (currentSection === section) return;
+        setCurrentSection(section);
+
+        if (imageContainerRef.current) {
+            const el = imageContainerRef.current;
+            el.style.display = 'block';
+
+            gsap.fromTo(el,
+                { opacity: 1, scale: 1 },
+                {
+                    opacity: 0,
+                    scale: 0.95,
+                    duration: 0.3,
+                    ease: "power1.inOut",
+                    onComplete: () => {
+                        el.style.backgroundImage = `url(${sectionImages[section as keyof typeof sectionImages]})`;
+                        gsap.fromTo(el,
+                            { opacity: 0, scale: 0.95 },
+                            { opacity: 1, scale: 1, duration: 0.5, ease: "power1.inOut" }
+                        );
+                    }
+                }
+            );
+        }
     }
-    
+
     return (
         <>
             <div
@@ -102,22 +122,22 @@ export default function TableOfContents() {
                 onMouseLeave={resetTableOfContents}
             >
                 {/* Conteneur d'image fixe pour chaque section */}
-                <div 
+                <div
                     ref={imageContainerRef}
-                    className="fixed right-0 top-1/4 h-[70vh] lg:w-1/4 bg-cover bg-center image-container rounded-2xl shadow-xl"
+                    className="fixed right-0 top-1/3 transform -translate-y-1/2 h-[70vh] lg:w-1/4 bg-cover bg-center rounded-2xl shadow-xl"
                     style={{ display: 'none' }}
-                >
-                </div>
+                />
 
-                <h2 className="relative text-6xl font-bold mb-8 pb-4">
+                <h2 className="relative text-6xl font-bold mb-8 pb-4 text-center">
                     Table of Contents
                     <span className="absolute left-1/2 bottom-0 -translate-x-1/2 w-90 border-b-3 border-white shadow-md"></span>
                 </h2>
+
                 <ul ref={ulRef} className="text-5xl space-y-10 font-semibold text-center">
                     <li>
                         <a
                             href="#projects"
-                            className="hover:text-[#b5dcff] transition-all duration-300 inline-block hover:scale-130"
+                            className="hover:text-[#b5dcff] transition-all duration-300 inline-block hover:scale-110"
                             onMouseOver={() => showPreview("projects")}
                         >
                             1. Projects
@@ -126,7 +146,7 @@ export default function TableOfContents() {
                     <li>
                         <a
                             href="#pictures"
-                            className="hover:text-[#b5dcff] transition-all duration-300 inline-block hover:scale-130"
+                            className="hover:text-[#b5dcff] transition-all duration-300 inline-block hover:scale-110"
                             onMouseOver={() => showPreview("pictures")}
                         >
                             2. Pictures
@@ -135,7 +155,7 @@ export default function TableOfContents() {
                     <li>
                         <a
                             href="#about"
-                            className="hover:text-[#b5dcff] transition-all inline-block duration-300 hover:scale-130"
+                            className="hover:text-[#b5dcff] transition-all duration-300 inline-block hover:scale-110"
                             onMouseOver={() => showPreview("about")}
                         >
                             3. About
