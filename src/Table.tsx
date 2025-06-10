@@ -35,7 +35,7 @@ export default function TableOfContents() {
         gsap.to(containerRef.current, {
             x: "-30vw", // Déplacement de 500px vers la gauche sur desktop seulement
             duration: 0.8,
-            ease: "power1.inOut"
+            ease: "power1.out"
         });
 
         // Afficher l'image correspondante à la section
@@ -45,7 +45,7 @@ export default function TableOfContents() {
             
             gsap.fromTo(imageContainerRef.current,
                 { opacity: 0, scale: 0.95 },
-                { opacity: 1, scale: 1, duration: 0.8, ease: "power1.inOut" }
+                { opacity: 1, scale: 1, duration: 1.2, ease: "power1.in" }
             );
         }
     }
@@ -61,13 +61,13 @@ export default function TableOfContents() {
             ease: "power1.inOut"
         });
 
-        // Cacher l'image
+        // Cacher l'image avec une transition fluide
         if (imageContainerRef.current) {
             gsap.to(imageContainerRef.current, {
                 opacity: 0,
                 scale: 0.95,
-                duration: 0.4,
-                ease: "power1.inOut",
+                duration: 0.5,
+                ease: "power1.out",
                 onComplete: () => {
                     if (imageContainerRef.current) {
                         imageContainerRef.current.style.display = 'none';

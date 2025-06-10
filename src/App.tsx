@@ -138,7 +138,8 @@ function App() {
                 alt="Previous"
                 width={10}
                 height={10}
-                className="transform group-hover:scale-125 group-hover:-translate-x-1 transition-transform duration-300"
+                className="transform group-hover:scale-125
+                cursor-pointer group-hover:-translate-x-1 transition-transform duration-300"
                 />
             </button>
             
@@ -152,7 +153,9 @@ function App() {
                 alt="Previous"
                 width={10}
                 height={10}
-                className="transform group-hover:scale-125 group-hover:-translate-x-1 transition-transform duration-300"
+                className="transform group-hover:scale-125 group-hover:translate-x-1
+                cursor-pointer
+                transition-transform duration-300"
                 />
             </button>
           </div>
