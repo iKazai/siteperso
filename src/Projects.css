@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .projects-title {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+
+  .project-item {
+    width: 90%; /* Items take more width on smaller screens */
+    max-width: none; /* Allow items to be wider if 90% is larger than 450px */
+  }
+
+  .project-title-overlay h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-title {
+    font-size: 2rem;
+  }
+  .project-item {
+    width: 95%; /* Even more width on very small screens */
+  }
+  .project-title-overlay h2 {
+    font-size: 1rem;
+  }
+}

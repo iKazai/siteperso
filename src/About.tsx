@@ -3,7 +3,7 @@ import './About.css';
 export default function About() {
     return (
         <div id="about" className="hero bg-base-100 min-h-screen relative">
-            <div className="hero-content flex-col lg:flex-row-reverse" style={{fontFamily: 'EB Garamond, serif'}}>
+            <div className="px-6 hero-content flex-col lg:flex-row-reverse" style={{fontFamily: 'EB Garamond, serif'}}>
                 <div>
                     <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold mb-5">Hello,</h1>
                     <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4">I'm Anjy STADELANN</h1>
@@ -19,6 +19,9 @@ export default function About() {
                                 src="src/assets/logo/instagram-Logo.svg" 
                                 alt="Instagram"
                                 className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14"
+                                onMouseOver={(e) => e.currentTarget.style.filter = 'brightness(1)'}
+                                onMouseOut={(e) => e.currentTarget.style.filter = 'brightness(0)'}
+                                style = {{ filter: 'brightness(0)', transition: 'filter 0.5s ease' }}
                             />
                         </a>
                         <a href="https://www.linkedin.com/in/anjy-stadelmann/" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-transform duration-500">
@@ -26,6 +29,9 @@ export default function About() {
                                 src="src/assets/logo/LinkedIn-Logo.svg" 
                                 alt="LinkedIn"
                                 className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14"
+                                onMouseOver={(e) => e.currentTarget.style.filter = 'brightness(1)'}
+                                onMouseOut={(e) => e.currentTarget.style.filter = 'brightness(0)'}
+                                style = {{ filter: 'brightness(0)', transition: 'filter 0.5s ease' }}
                             />
                         </a>
                         <a href="https://github.com/iKazai" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-transform duration-500">
@@ -33,7 +39,9 @@ export default function About() {
                                 src="src/assets/logo/GitHub-Logo.svg" 
                                 alt="GitHub"
                                 className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14"
-                                style={{ filter: 'brightness(0)' }} 
+                                style={{ filter: 'brightness(0)', transition: 'filter 0.5s ease' }} 
+                                onMouseOver={(e) => e.currentTarget.style.filter = 'brightness(6)'}
+                                onMouseOut={(e) => e.currentTarget.style.filter = 'brightness(0)'}
                             />
                         </a>
                     </div>

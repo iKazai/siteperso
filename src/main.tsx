@@ -7,6 +7,7 @@ import App from './App.tsx';
 import TableOfContents from './Table.tsx';
 import SplashScreen from './SplashScreen.tsx';
 import About from './About.tsx';
+import Projects from './Projects.tsx';
 
 function Root() {
   const [showSplash, setShowSplash] = useState(true);
@@ -18,6 +19,7 @@ function Root() {
       <Navigation />
       <App />
       <TableOfContents />
+      <Projects />
       <About />
     </>
   );
