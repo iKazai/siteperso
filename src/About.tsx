@@ -6,7 +6,7 @@ export default function About() {
             <div className="px-6 hero-content flex-col lg:flex-row-reverse" style={{fontFamily: 'EB Garamond, serif'}}>
                 <div>
                     <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold mb-5">Hello,</h1>
-                    <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4">I'm Anjy STADELANN</h1>
+                    <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4">I'm Anjy STADELMANN</h1>
                     <p className="py-6 text-base sm:text-lg md:text-xl lg:text-4xl text-justify leading-relaxed">
                         I'm an <strong>engineering student</strong> near Paris, <strong>studying computer science and applied mathematics</strong> to earn both an engineering degree and a master's in computer science. <br />
                         Beyond my studies, I love discovering new languages on personal projects, which I share on my <strong>GitHub</strong>, and <strong>capturing moments through photography</strong> on Instagram. I'm always exploring, building, and <strong>refining my skills</strong>.
