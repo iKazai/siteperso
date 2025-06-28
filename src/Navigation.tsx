@@ -1,4 +1,4 @@
-import './Navigation.css';
+import './styles/Navigation.css';
 import { useState } from 'react';
 
 export default function Navigation() {

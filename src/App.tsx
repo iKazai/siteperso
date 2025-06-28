@@ -1,4 +1,4 @@
-import './App.css'
+import './styles/App.css'
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useState, useRef } from 'react';
