@@ -1,22 +1,38 @@
 import './styles/App.css'
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 gsap.registerPlugin(useGSAP);
 
+// Liste des images du carrousel. Ces images sont placées dans
+// src/assets/homeCarousel et utilisent l'extension .png. Des
+// placeholders abstraits sont fournis par défaut – remplacez‑les
+// par vos propres photos en conservant la même structure de
+// dossier pour un résultat optimal.
 const homeCarousel = [
-  'src/assets/homeCarousel/0.jpg',
-  'src/assets/homeCarousel/1.jpg',
-  'src/assets/homeCarousel/2.jpg',
-  'src/assets/homeCarousel/3.jpg',
-]
+  'src/assets/homeCarousel/0.png',
+  'src/assets/homeCarousel/1.png',
+  'src/assets/homeCarousel/2.png',
+  'src/assets/homeCarousel/3.png',
+];
 
 function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const overlayRef = useRef(null);
   const imageRef = useRef(null);
+
+  // Changement automatique d'image toutes les 6 secondes.
+  // L'effet est nettoyé lorsque le composant est démonté afin
+  // d'éviter les fuites de mémoire.
+  useEffect(() => {
+    const interval = setInterval(() => {
+      goForward();
+    }, 6000);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentImageIndex]);
 
   const transition = (newIndex: number) => {
     if (isTransitioning) return;

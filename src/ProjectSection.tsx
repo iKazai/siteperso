@@ -14,12 +14,20 @@ export default function ProjectSection({ project }: { project: Project }) {
       <div className="md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left">
         <h2 className="text-4xl font-bold mb-4 text-[#C3F7D4]">{project.title}</h2>
         <p className="mb-6 max-w-md">{project.description}</p>
-        <a
-          href={project.link}
-          className="inline-block px-6 py-2 border-2 border-white rounded-full text-white hover:bg-white hover:text-gray-800 transition"
-        >
-          GitHub
-        </a>
+        {project.link && project.link !== '#' ? (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-6 py-2 border-2 border-white rounded-full text-white hover:bg-white hover:text-gray-800 transition"
+          >
+            GitHub
+          </a>
+        ) : (
+          <span className="inline-block px-6 py-2 border-2 border-gray-400 rounded-full text-gray-400 cursor-not-allowed" title="Lien à venir">
+            Bientôt
+          </span>
+        )}
       </div>
       <div className="md:w-1/2 flex justify-center mt-6 md:mt-0">
         <img

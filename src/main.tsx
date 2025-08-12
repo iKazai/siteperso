@@ -10,6 +10,8 @@ import About from './About.tsx';
 import Projects from './Projects.tsx';
 import ProjectSection from './ProjectSection.tsx';
 import { projectsData } from './projectsData.tsx';
+import Pictures from './Pictures.tsx';
+import ScrollProgress from './ScrollProgress.tsx';
 
 function Root() {
   const [showSplash, setShowSplash] = useState(true);
@@ -18,11 +20,20 @@ function Root() {
     <SplashScreen onFinish={() => setShowSplash(false)} duration={2500} />
   ) : (
     <>
+      {/* Barre de progression de scroll en haut de la page */}
+      <ScrollProgress />
       <Navigation />
       <App />
       <TableOfContents />
+      {/* Section projets (aperçu) */}
       <Projects />
-      {projectsData.map(p => <ProjectSection key={p.id} project={p} />)}
+      {/* Sections détaillées pour chaque projet */}
+      {projectsData.map((p) => (
+        <ProjectSection key={p.id} project={p} />
+      ))}
+      {/* Galerie de photos */}
+      <Pictures />
+      {/* Section à propos */}
       <About />
     </>
   );
