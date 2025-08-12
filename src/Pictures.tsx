@@ -20,6 +20,7 @@ const photos = [
   { id: 7, category: 'Nature', src: 'src/assets/gallery/nature1.png' },
   { id: 8, category: 'Nature', src: 'src/assets/gallery/nature2.png' },
   { id: 9, category: 'Nature', src: 'src/assets/gallery/nature3.png' },
+  { id: 10, category: 'Nature', src: 'src/assets/gallery/nature1.png' },
 ];
 
 const categories = ['All', 'Portrait', 'Street', 'Nature'];
@@ -47,7 +48,7 @@ export default function Pictures() {
   }, [selectedCategory]);
 
   return (
-    <section id="pictures" className="bg-base-100 py-16 px-6 min-h-screen">
+    <section id="pictures" className="bg-base-100 py-16 px-6 min-h-screen pt-30">
       <h2 className="text-5xl sm:text-6xl font-bold text-center mb-12" style={{ fontFamily: 'EB Garamond, serif' }}>
         Photos
       </h2>
@@ -68,7 +69,9 @@ export default function Pictures() {
         ))}
       </div>
       {/* Grille masonry via colonnes */}
-      <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+      <div className="  max-w-screen-xl mx-auto
+  columns-[220px] sm:columns-[260px] md:columns-[300px] lg:columns-[340px]
+  gap-4 space-y-4">
         {filteredPhotos.map((photo) => (
           <img
             key={photo.id}

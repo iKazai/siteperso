@@ -52,18 +52,18 @@ export default function Navigation() {
                 Home
               </a>
               <a 
-                href="#pictures" 
-                className="text-6xl text-white font-serif  hover:text-[#b5dcff] transition-all duration-300 hover:scale-110 cursor-pointer"
-                onClick={toggleMenu}
-              >
-                Pictures
-              </a>
-              <a 
                 href="#projects" 
                 className="text-6xl text-white font-serif  hover:text-[#b5dcff] transition-all duration-300 hover:scale-110 cursor-pointer"
                 onClick={toggleMenu}
               >
                 Projects
+              </a>
+              <a 
+                href="#pictures" 
+                className="text-6xl text-white font-serif  hover:text-[#b5dcff] transition-all duration-300 hover:scale-110 cursor-pointer"
+                onClick={toggleMenu}
+              >
+                Pictures
               </a>
               <a 
                 href="#about" 

@@ -11,10 +11,10 @@ gsap.registerPlugin(useGSAP);
 // par vos propres photos en conservant la même structure de
 // dossier pour un résultat optimal.
 const homeCarousel = [
-  'src/assets/homeCarousel/0.png',
-  'src/assets/homeCarousel/1.png',
-  'src/assets/homeCarousel/2.png',
-  'src/assets/homeCarousel/3.png',
+  'src/assets/homeCarousel/0.jpg',
+  'src/assets/homeCarousel/1.jpg',
+  'src/assets/homeCarousel/2.jpg',
+  'src/assets/homeCarousel/3.jpg',
 ];
 
 function App() {
