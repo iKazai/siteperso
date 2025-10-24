@@ -1,24 +1,25 @@
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram, FaHeart } from 'react-icons/fa';
+import { SITE_CONFIG } from '../config';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
     { 
-      href: "https://github.com/iKazai", 
+      href: SITE_CONFIG.social.github, 
       icon: <FaGithub />, 
       label: "GitHub",
       color: "#fff"
     },
     { 
-      href: "https://www.linkedin.com/in/anjy-stadelmann/", 
+      href: SITE_CONFIG.social.linkedin, 
       icon: <FaLinkedin />, 
       label: "LinkedIn",
       color: "#0077B5"
     },
     { 
-      href: "https://www.instagram.com/njyy_s_/", 
+      href: SITE_CONFIG.social.instagram, 
       icon: <FaInstagram />, 
       label: "Instagram",
       color: "#E4405F"
@@ -38,10 +39,10 @@ export default function Footer() {
             className="text-center md:text-left"
           >
             <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-[#b5dcff] to-[#a78bfa] bg-clip-text text-transparent">
-              Anjy Stadelmann
+              {SITE_CONFIG.author.name}
             </h3>
             <p className="text-gray-400 text-sm">
-              Engineering Student • Developer • Photographer
+              {SITE_CONFIG.author.title}
             </p>
           </motion.div>
 
@@ -55,14 +56,14 @@ export default function Footer() {
           >
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <div className="flex flex-col space-y-2">
-              {['Home', 'Projects', 'Skills', 'Pictures', 'About', 'Contact'].map((item) => (
+              {SITE_CONFIG.navigation.map((item) => (
                 <motion.a
-                  key={item}
-                  href={item === 'Home' ? '/' : `#${item.toLowerCase()}`}
+                  key={item.label}
+                  href={item.href}
                   whileHover={{ x: 5 }}
                   className="text-gray-400 hover:text-[#b5dcff] transition-colors duration-300"
                 >
-                  {item}
+                  {item.label}
                 </motion.a>
               ))}
             </div>
@@ -109,7 +110,7 @@ export default function Footer() {
           className="text-center text-gray-400 text-sm"
         >
           <p className="flex items-center justify-center gap-2">
-            Made with <FaHeart className="text-red-500 animate-pulse" /> by Anjy Stadelmann © {currentYear}
+            Made with <FaHeart className="text-red-500 animate-pulse" /> by {SITE_CONFIG.author.name} © {currentYear}
           </p>
           <p className="mt-2 opacity-70">
             All rights reserved. Built with React, TypeScript, Tailwind CSS, and Framer Motion.

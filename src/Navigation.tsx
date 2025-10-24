@@ -1,6 +1,7 @@
 import './styles/Navigation.css';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { SITE_CONFIG } from './config';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,15 +9,6 @@ export default function Navigation() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  const menuItems = [
-    { href: '/', label: 'Home' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#pictures', label: 'Pictures' },
-    { href: '#about', label: 'About me' },
-    { href: '#contact', label: 'Contact' },
-  ];
 
   return (
     <>
@@ -76,7 +68,7 @@ export default function Navigation() {
 
             {/* Menu principal */}
             <nav className="flex flex-col space-y-8">
-              {menuItems.map((item, index) => (
+              {SITE_CONFIG.navigation.map((item, index) => (
                 <motion.a 
                   key={item.label}
                   href={item.href}
