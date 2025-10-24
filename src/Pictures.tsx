@@ -1,15 +1,7 @@
 import { useState } from 'react';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
-// Enregistre le plugin GSAP pour React. Cela permet d'utiliser
-// l'animation dans les hooks useGSAP.
-gsap.registerPlugin(useGSAP);
-
-// Définition des photos et de leurs catégories. Les images sont
-// importées via leur chemin relatif pour être correctement gérées
-// par Vite. Vous pouvez ajouter autant d'images que souhaité en
-// suivant le même modèle et en créant vos propres catégories.
 const photos = [
   { id: 1, category: 'Portrait', src: 'src/assets/gallery/portrait1.png' },
   { id: 2, category: 'Portrait', src: 'src/assets/gallery/portrait2.png' },
@@ -28,6 +20,10 @@ const categories = ['All', 'Portrait', 'Street', 'Nature'];
 export default function Pictures() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
 
   // Filtre les photos selon la catégorie sélectionnée. Si "All"
   // est sélectionné, toutes les images sont renvoyées.
@@ -35,66 +31,86 @@ export default function Pictures() {
     ? photos
     : photos.filter((photo) => photo.category === selectedCategory);
 
-  // Animation d'apparition des images au montage. Chaque photo
-  // glisse et s'estompe lors de son apparition dans le DOM.
-  useGSAP(() => {
-    gsap.from('.photo-item', {
-      opacity: 0,
-      y: 30,
-      stagger: 0.1,
-      duration: 0.6,
-      ease: 'power2.out',
-    });
-  }, [selectedCategory]);
-
   return (
-    <section id="pictures" className="bg-base-100 py-16 px-6 min-h-screen pt-30">
-      <h2 className="text-5xl sm:text-6xl font-bold text-center mb-12" style={{ fontFamily: 'EB Garamond, serif' }}>
+    <section id="pictures" className="bg-base-100 py-16 px-6 min-h-screen pt-30" ref={ref}>
+      <motion.h2 
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        className="text-5xl sm:text-6xl font-bold text-center mb-12" 
+        style={{ fontFamily: 'EB Garamond, serif' }}
+      >
         Photos
-      </h2>
+      </motion.h2>
       {/* Boutons de filtre */}
-      <div className="flex flex-wrap justify-center gap-4 mb-12">
-        {categories.map((cat) => (
-          <button
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="flex flex-wrap justify-center gap-4 mb-12"
+      >
+        {categories.map((cat, index) => (
+          <motion.button
             key={cat}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setSelectedCategory(cat)}
             className={`px-5 py-2 rounded-full border transition-colors duration-300 ${
               selectedCategory === cat
-                ? 'bg-[#b5dcff] text-gray-900 border-transparent'
+                ? 'bg-[#b5dcff] text-gray-900 border-transparent shadow-lg'
                 : 'bg-transparent text-[#b5dcff] border-[#b5dcff]'
             } hover:bg-[#b5dcff] hover:text-gray-900`}
           >
             {cat}
-          </button>
+          </motion.button>
         ))}
-      </div>
+      </motion.div>
       {/* Grille masonry via colonnes */}
-      <div className="  max-w-screen-xl mx-auto
-  columns-[220px] sm:columns-[260px] md:columns-[300px] lg:columns-[340px]
-  gap-4 space-y-4">
-        {filteredPhotos.map((photo) => (
-          <img
-            key={photo.id}
-            src={photo.src}
-            alt={photo.category}
-            className="photo-item w-full rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105 shadow-lg"
-            onClick={() => setLightboxImage(photo.src)}
-          />
-        ))}
+      <div className="max-w-screen-xl mx-auto columns-[220px] sm:columns-[260px] md:columns-[300px] lg:columns-[340px] gap-4 space-y-4">
+        <AnimatePresence mode="popLayout">
+          {filteredPhotos.map((photo, index) => (
+            <motion.img
+              key={photo.id}
+              src={photo.src}
+              alt={photo.category}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
+              whileHover={{ scale: 1.05, zIndex: 10 }}
+              className="w-full rounded-lg cursor-pointer transition-all duration-300 shadow-lg hover:shadow-2xl"
+              onClick={() => setLightboxImage(photo.src)}
+            />
+          ))}
+        </AnimatePresence>
       </div>
       {/* Lightbox */}
-      {lightboxImage && (
-        <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 cursor-pointer"
-          onClick={() => setLightboxImage(null)}
-        >
-          <img
-            src={lightboxImage}
-            alt="preview"
-            className="max-w-3xl w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl border border-gray-700"
-          />
-        </div>
-      )}
+      <AnimatePresence>
+        {lightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 cursor-pointer p-4"
+            onClick={() => setLightboxImage(null)}
+          >
+            <motion.img
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              src={lightboxImage}
+              alt="preview"
+              className="max-w-3xl w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl border border-gray-700"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
