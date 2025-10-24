@@ -16,6 +16,8 @@ import Skills from './components/Skills.tsx';
 import Contact from './components/Contact.tsx';
 import ThemeToggle from './components/ThemeToggle.tsx';
 import ParticlesBackground from './components/ParticlesBackground.tsx';
+import Footer from './components/Footer.tsx';
+import ScrollToTop from './components/ScrollToTop.tsx';
 
 function Root() {
   const [showSplash, setShowSplash] = useState(true);
@@ -30,6 +32,8 @@ function Root() {
       <ScrollProgress />
       {/* Theme toggle */}
       <ThemeToggle />
+      {/* Scroll to top button */}
+      <ScrollToTop />
       <Navigation />
       <App />
       <TableOfContents />
@@ -47,6 +51,8 @@ function Root() {
       <About />
       {/* Contact form */}
       <Contact />
+      {/* Footer */}
+      <Footer />
     </>
   );
 }
