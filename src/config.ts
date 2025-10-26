@@ -3,7 +3,7 @@
 export const SITE_CONFIG = {
   author: {
     name: "Anjy Stadelmann",
-    title: "Engineering Student • Developer • Photographer",
+    title: "Engineering Student • Developer",
   },
   social: {
     github: "https://github.com/iKazai",

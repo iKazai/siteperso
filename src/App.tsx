@@ -1,7 +1,7 @@
 import './styles/App.css'
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useState, useRef, useEffect } from 'react';
+import { useCallback, useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 
@@ -25,6 +25,16 @@ function App() {
   const overlayRef = useRef(null);
   const imageRef = useRef(null);
 
+  const currentIndexRef = useRef(currentImageIndex);
+    useEffect(() => {
+      currentIndexRef.current = currentImageIndex;
+    }, [currentImageIndex]);
+
+  const isTransitioningRef = useRef(isTransitioning);
+    useEffect(() => {
+      isTransitioningRef.current = isTransitioning;
+    }, [isTransitioning]);
+
   // Changement automatique d'image toutes les 6 secondes.
   // L'effet est nettoyé lorsque le composant est démonté afin
   // d'éviter les fuites de mémoire.
@@ -36,11 +46,12 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentImageIndex]);
 
-  const transition = (newIndex: number) => {
-    if (isTransitioning) return;
-    
+  // stabiliser transition en utilisant les refs
+  const transition = useCallback((newIndex: number) => {
+    if (isTransitioningRef.current) return;
+
     setIsTransitioning(true);
-    
+
     // Fondu au noir
     gsap.to(overlayRef.current, {
       opacity: 1,
@@ -48,7 +59,7 @@ function App() {
       onComplete: () => {
         // Changer l'image pendant que l'écran est noir
         setCurrentImageIndex(newIndex);
-        
+
         // Fondu depuis le noir
         gsap.to(overlayRef.current, {
           opacity: 0,
@@ -56,21 +67,34 @@ function App() {
           delay: 0.2,
           onComplete: () => {
             setIsTransitioning(false);
-          }
+          },
         });
-      }
+      },
     });
-  };
+  }, []);
 
+  // remplacer tes fonctions goForward / goBackward par des wrappers simples si tu veux les garder
   const goForward = () => {
-    const newIndex = (currentImageIndex + 1) % homeCarousel.length;
+    const newIndex = (currentIndexRef.current + 1) % homeCarousel.length;
     transition(newIndex);
   };
 
   const goBackward = () => {
-    const newIndex = currentImageIndex === 0 ? homeCarousel.length - 1 : currentImageIndex - 1;
+    const newIndex = currentIndexRef.current === 0 ? homeCarousel.length - 1 : currentIndexRef.current - 1;
     transition(newIndex);
   };
+
+  // nouvel useEffect pour l'auto-advance toutes les 5s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // on saute l'avance automatique si une transition est en cours
+      if (isTransitioningRef.current) return;
+      const next = (currentIndexRef.current + 1) % homeCarousel.length;
+      transition(next);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [transition]);
 
   // Configuration de GSAP
   useGSAP(() => {
@@ -129,7 +153,7 @@ function App() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-lg md:text-xl opacity-80 mt-6"
           >
-            Engineering Student • Developer • Photographer
+            Engineering Student • Developer
           </motion.p>
         </motion.div>
         {/* Image Carousel à droite (devient en haut sur mobile) */}

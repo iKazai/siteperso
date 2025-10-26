@@ -22,7 +22,7 @@ export default function Navigation() {
           whileHover={{ scale: 1.05 }}
           className="text-5xl font-bold"
         >
-          <span className="relative inline-block group cursor-pointer">
+          <span className="relative inline-block group cursor-default">
             <span className="group-hover:opacity-0 transition-opacity duration-300">
               Delma
             </span>
@@ -77,7 +77,7 @@ export default function Navigation() {
                   exit={{ opacity: 0, x: 50 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   whileHover={{ scale: 1.1, x: 10 }}
-                  className="text-6xl text-white font-serif hover:text-[#b5dcff] transition-all duration-300 cursor-pointer"
+                  className="text-6xl text-white font-serif hover:text-[#b5dcff] transition-all duration-100 cursor-pointer"
                   onClick={toggleMenu}
                 >
                   {item.label}
