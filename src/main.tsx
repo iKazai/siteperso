@@ -12,6 +12,7 @@ import ProjectSection from './ProjectSection.tsx';
 import { projectsData } from './projectsData.tsx';
 import Pictures from './Pictures.tsx';
 import ScrollProgress from './ScrollProgress.tsx';
+import ParticleBackground from './components/ParticlesBackground.tsx';
 
 function Root() {
   const [showSplash, setShowSplash] = useState(true);
@@ -22,6 +23,7 @@ function Root() {
     <>
       {/* Barre de progression de scroll en haut de la page */}
       <ScrollProgress />
+       <ParticleBackground />
       <Navigation />
       <App />
       <TableOfContents />

@@ -5,7 +5,7 @@ import { projectsData } from './projectsData.tsx';
 
 const Projects: React.FC = () => {
   return (
-    <div className="bg-base-100 min-h-screen flex flex-col items-center justify-center p-5 box-border text-center text-gray-700 pt-20" id="projects">
+    <div className=" min-h-screen flex flex-col items-center justify-center p-5 box-border text-center text-gray-700 pt-20" id="projects">
       <h1 className="text-5xl sm:text-4xl md:text-5xl mb-10 text-slate-700 font-['Orbitron']">Portfolio</h1>
       <div className="flex overflow-x-auto overflow-y-hidden w-full max-w-6xl pb-5 snap-x snap-mandatory touch-pan-x scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
         {projectsData.map((project) => {
