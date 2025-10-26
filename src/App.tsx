@@ -2,6 +2,8 @@ import './styles/App.css'
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { FaChevronDown } from 'react-icons/fa';
 
 gsap.registerPlugin(useGSAP);
 
@@ -77,9 +79,17 @@ function App() {
 
   return (
     <>
-      <div className="App bg-base-100 min-h-screen flex flex-col-reverse md:flex-row items-center justify-center px-6 md:px-10 py-10 md:py-0 gap-12 md:gap-20 lg:gap-40" style={{fontFamily: 'EB Garamond, serif'}}>
+      <div className="App bg-base-100 min-h-screen flex flex-col-reverse md:flex-row items-center justify-center px-6 md:px-10 py-10 md:py-0 gap-12 md:gap-20 lg:gap-40 relative overflow-hidden" style={{fontFamily: 'EB Garamond, serif'}}>
+        {/* Gradient overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/10 pointer-events-none"></div>
+        
         {/* Texte à gauche (devient en bas sur mobile) */}
-        <div className="w-full md:w-1/2 lg:w-2/5 text-right">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="w-full md:w-1/2 lg:w-2/5 text-right relative z-10"
+        >
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-4 leading-tight inline-block">
             <div className="flex flex-wrap justify-end gap-x-2">
               {/* Groupe 1 : "Plus" → "Une" */}
@@ -113,13 +123,26 @@ function App() {
               </span>
             </div>
           </h1>
-        </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-lg md:text-xl opacity-80 mt-6"
+          >
+            Engineering Student • Developer • Photographer
+          </motion.p>
+        </motion.div>
         {/* Image Carousel à droite (devient en haut sur mobile) */}
-        <div className="carousel mt-20 w-full md:w-[450px] lg:w-[560px] h-[350px] md:h-[500px] lg:h-[700px] relative overflow-hidden rounded-2xl shadow-xl">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="carousel mt-20 w-full md:w-[450px] lg:w-[560px] h-[350px] md:h-[500px] lg:h-[700px] relative overflow-hidden rounded-2xl shadow-2xl border border-white/10"
+        >
           {/* Image actuelle */}
           <div 
             ref={imageRef}
-            className="carousel-item w-full h-full bg-cover bg-center"
+            className="carousel-item w-full h-full bg-cover bg-center transition-transform duration-500 hover:scale-105"
             style={{ backgroundImage: `url(${homeCarousel[currentImageIndex]})` }}
           ></div>
           
@@ -144,8 +167,10 @@ function App() {
 
           {/* Navigation Arrows */}
           <div className="absolute bottom-5 right-5 flex space-x-3 z-10">
-            <button 
-              className="w-8 md:w-10 h-8 md:h-10 flex items-center justify-center border-2 rounded-full text-white transition-all group"
+            <motion.button 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-8 md:w-10 h-8 md:h-10 flex items-center justify-center border-2 rounded-full text-white transition-all group backdrop-blur-sm bg-white/10"
               onClick={goBackward}
               disabled={isTransitioning}
             >
@@ -157,43 +182,38 @@ function App() {
                 className="transform group-hover:scale-125
                 cursor-pointer group-hover:-translate-x-1 transition-transform duration-300"
                 />
-            </button>
+            </motion.button>
             
-            <button 
-              className="w-8 md:w-10 h-8 md:h-10 flex items-center justify-center border-2 rounded-full text-white transition-all group"
+            <motion.button 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-8 md:w-10 h-8 md:h-10 flex items-center justify-center border-2 rounded-full text-white transition-all group backdrop-blur-sm bg-white/10"
               onClick={goForward}
               disabled={isTransitioning}
             >
                 <img
                 src="src/assets/rightBrack.svg"
-                alt="Previous"
+                alt="Next"
                 width={10}
                 height={10}
                 className="transform group-hover:scale-125 group-hover:translate-x-1
                 cursor-pointer
                 transition-transform duration-300"
                 />
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Swipe up */}
-
-        <a className="flex flex-col absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-sm items-center hover:animate-bounce" href="#tableofcontents">
-        Swipe to discover
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 3a1 1 0 011 1v8.586l2.293-2.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L9 12.586V4a1 1 0 011-1z"
-              clipRule="evenodd"
-            />
-          </svg>
-          </a>
+        <motion.a 
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+          className="flex flex-col absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white text-sm items-center group cursor-pointer" 
+          href="#tableofcontents"
+        >
+          Swipe to discover
+          <FaChevronDown className="text-xl mt-2 group-hover:text-[#b5dcff] transition-colors" />
+        </motion.a>
       </div>
     </>
   )
