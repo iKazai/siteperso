@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 /**
  * Affiche une barre de progression horizontale en haut de l'écran indiquant
@@ -7,23 +7,17 @@ import { useEffect, useState } from 'react';
  * hauteur totale du document. La couleur suit un dégradé repris du thème.
  */
 export default function ScrollProgress() {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.scrollHeight - window.innerHeight;
-      const scrolled = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      setProgress(scrolled);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   return (
-    <div
-      className="fixed top-0 left-0 h-1 z-50 bg-gradient-to-r from-[#b5dcff] via-[#C3F7D4] to-[#84e6e5]"
-      style={{ width: `${progress}%` }}
+    <motion.div
+      className="fixed top-0 left-0 h-1 z-50 bg-gradient-to-r from-[#b5dcff] via-[#a78bfa] to-[#34d399] origin-left shadow-lg shadow-blue-500/50"
+      style={{ scaleX }}
     />
   );
 }
